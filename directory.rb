@@ -1,62 +1,44 @@
-
-=begin
-Our code only works with the student name and cohort.
-Add more information: hobbies, country of birth, height, etc.
-=end
-
-def print_input_students
- puts "Please enter the names of the students"
- puts "To finish, just hit return twice"
- students = []
- name = gets.chomp.capitalize
- while !name.empty? do
-   students << { name: name, cohort: :november }
-   puts "Now we have #{students.count} students"
-   name = gets.chomp.capitalize
- end
- students
+#lets put all students into an array
+def input_students
+  puts "Please enter the name of the student"
+  #create an empty array
+students = []
+#get the first name
+name = gets.chomp
+#while the name is not empty, repeat this code
+while !name.empty? do
+  #add the student hash to the array
+  students << {name: name}
+  puts "Thank you, now we need some more information about the student"
+  puts "Which cohort is the student in?"
+  cohort = gets.chomp.to_sym
+  cohort = :january if cohort.empty?
+  students << {cohort: cohort}
+  puts "Thank you, we now have #{students.count}."
+  puts "Add another student by typing their name, or press return twice to exit"
+  #get another name from the user
+  name = gets.chomp
 end
+#return the array of students
+students
+end
+
 
 def print_header
- puts "The students of Villains Academy"
- puts "-------------"
+puts "The students of Villains Academy"
+puts "--------------"
 end
 
-def print(students)
- students.each_with_index { |n,i| puts "#{i+1}. #{n[:name]} (#{n[:cohort]} cohort)"}
+def print_students(students)
+ students.each do |students|
+  puts "#{students[:name]} in (#{students[:cohort]} cohort}"
 end
 
 def print_footer(students)
- puts "Overall, we have #{students.count} great students"
+puts "Overall, we have #{students.count} great students"
 end
 
-def add_student_info
- puts "Which student?"
- students_name = gets.chomp
- info = []
- info << students_name
- puts "Hobbies?"
- hobbies = gets.chomp
- info << hobbies
- puts "Country of birth?"
- cob = gets.chomp
- info << cob
- puts "Height?"
- height = gets.chomp
- info << height
- puts "All done!"
- puts "So, just to check I got all that:"
- puts "#{info[0]}'s hobbies are #{info[1]}"
- puts "#{info[0]}'s country of birth is #{info[2]}"
- puts "#{info[0]} is #{info[3]} meters tall"
-end
-
-students = print_input_students
+students = input_students
 print_header
-print(students)
+print_students(students)
 print_footer(students)
-puts "Do you want to add more information? (y/n)"
- reply = gets.chomp
- if reply == "y"
-   add_student_info
- end
